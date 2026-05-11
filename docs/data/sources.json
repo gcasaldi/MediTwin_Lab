@@ -1,0 +1,98 @@
+[
+  {
+    "name": "PubMed",
+    "category": "medical",
+    "priority": "P1",
+    "license": "Public domain metadata",
+    "summary": "Indicizzazione bibliografica NLM per letteratura biomedica e trial clinici.",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/"
+  },
+  {
+    "name": "ClinicalTrials.gov",
+    "category": "medical",
+    "priority": "P1",
+    "license": "Open government data",
+    "summary": "Registro ufficiale di studi clinici con endpoint API e risultati strutturati.",
+    "url": "https://clinicaltrials.gov/"
+  },
+  {
+    "name": "openFDA",
+    "category": "medical",
+    "priority": "P1",
+    "license": "Open government data",
+    "summary": "Database FDA su eventi avversi, etichette farmaci e segnali di sicurezza.",
+    "url": "https://open.fda.gov/"
+  },
+  {
+    "name": "WHO ATC/DDD",
+    "category": "medical",
+    "priority": "P2",
+    "license": "Terms by WHOCC",
+    "summary": "Classificazione farmacologica e dosi definite giornaliere per comparazioni terapeutiche.",
+    "url": "https://www.whocc.no/atc_ddd_index/"
+  },
+  {
+    "name": "ChEMBL",
+    "category": "chemical",
+    "priority": "P1",
+    "license": "CC BY-SA 3.0",
+    "summary": "Bioattivita di composti e target biologici, utile per farmacodinamica teorica.",
+    "url": "https://www.ebi.ac.uk/chembl/"
+  },
+  {
+    "name": "PubChem",
+    "category": "chemical",
+    "priority": "P1",
+    "license": "Public domain",
+    "summary": "Proprieta chimiche, strutture, sinonimi e informazioni tossicologiche sui composti.",
+    "url": "https://pubchem.ncbi.nlm.nih.gov/"
+  },
+  {
+    "name": "UniProt",
+    "category": "chemical",
+    "priority": "P2",
+    "license": "CC BY 4.0",
+    "summary": "Proteine e annotazioni funzionali per collegare target molecolari e pathway.",
+    "url": "https://www.uniprot.org/"
+  },
+  {
+    "name": "KEGG",
+    "category": "chemical",
+    "priority": "P2",
+    "license": "Mixed licensing",
+    "summary": "Pathway biologici e relazioni farmaco-metabolismo per modelli meccanicistici.",
+    "url": "https://www.genome.jp/kegg/"
+  },
+  {
+    "name": "USDA FoodData Central",
+    "category": "food",
+    "priority": "P1",
+    "license": "Open government data",
+    "summary": "Composizione nutrizionale ufficiale per integrazione dieta-farmaco e metabolismo.",
+    "url": "https://fdc.nal.usda.gov/"
+  },
+  {
+    "name": "EFSA OpenFoodTox",
+    "category": "food",
+    "priority": "P1",
+    "license": "Open data (EFSA terms)",
+    "summary": "Dati tossicologici su sostanze alimentari e contaminanti per stima rischio teorico.",
+    "url": "https://www.efsa.europa.eu/en/data-report/chemical-hazards-database-openfoodtox"
+  },
+  {
+    "name": "FooDB",
+    "category": "food",
+    "priority": "P2",
+    "license": "CC BY-NC 4.0",
+    "summary": "Composti bioattivi negli alimenti e possibili interazioni molecolari.",
+    "url": "https://foodb.ca/"
+  },
+  {
+    "name": "Open Targets Platform",
+    "category": "medical",
+    "priority": "P1",
+    "license": "Open source + open data",
+    "summary": "Associazioni gene-malattia-target per prioritizzare ipotesi terapeutiche.",
+    "url": "https://platform.opentargets.org/"
+  }
+]

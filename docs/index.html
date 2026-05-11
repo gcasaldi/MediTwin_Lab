@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MediTwin Lab: ambiente in silico basato su AI per simulare ipotesi terapeutiche e confrontare rischi e benefici in ambito biomedico."
+    />
+    <title>MediTwin Lab | In Silico Research Environment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a" aria-hidden="true"></div>
+    <div class="bg-orb orb-b" aria-hidden="true"></div>
+
+    <header class="hero">
+      <nav class="top-nav">
+        <span class="brand">MediTwin Lab</span>
+        <div class="nav-links">
+          <a class="nav-link" href="#fonti">Database</a>
+          <a class="nav-link" href="#ingestion">Ingestion</a>
+          <a class="nav-link" href="#lab">Lab</a>
+        </div>
+      </nav>
+
+      <section class="hero-content reveal">
+        <p class="eyebrow">AI-POWERED IN SILICO BIOMEDICAL RESEARCH</p>
+        <h1>Simula ipotesi terapeutiche.<br />Confronta rischi, benefici e incertezza.</h1>
+        <p class="lead">
+          MediTwin Lab e una piattaforma virtuale per ricerca ed educazione: non prescrive cure,
+          non sostituisce medici o trial clinici, ma aiuta a esplorare scenari sperimentali su
+          pazienti virtuali in modo strutturato e trasparente.
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#workflow">Come funziona</a>
+          <a class="btn ghost" href="#disclaimer">Limiti e safety</a>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section id="workflow" class="panel reveal">
+        <h2>Workflow sperimentale</h2>
+        <ol class="steps">
+          <li>Creazione del paziente virtuale (demografia, clinica, biomarcatori, rischio).</li>
+          <li>Selezione patologia e strategia terapeutica.</li>
+          <li>Simulazione ADME, profili PK/PD, interazioni, eventi avversi teorici.</li>
+          <li>Report su benefici potenziali, rischi, monitoraggio e grado di incertezza.</li>
+          <li>Iterazione con confronto multi-esperimento e apprendimento continuo.</li>
+        </ol>
+      </section>
+
+      <section class="panel split reveal">
+        <div>
+          <h2>Output AI strutturato</h2>
+          <ul class="check-list">
+            <li>Benefici potenziali e razionale ipotetico</li>
+            <li>Rischi, controindicazioni e vulnerabilita patient-specific</li>
+            <li>Scenario evolutivo simulato nel tempo</li>
+            <li>Parametri critici da monitorare</li>
+            <li>Indice di incertezza per distinguere ipotesi forti e deboli</li>
+          </ul>
+        </div>
+        <aside class="mini-card">
+          <h3>Claim ufficiale</h3>
+          <p>
+            MediTwin Lab is an AI-powered in silico research environment to simulate therapeutic
+            hypotheses, compare risks and benefits, and learn from virtual biomedical experiments.
+          </p>
+        </aside>
+      </section>
+
+      <section id="fonti" class="panel reveal">
+        <div class="section-head">
+          <h2>Database pubblici integrabili</h2>
+          <p>
+            Catalogo iniziale di fonti mediche, chimiche e alimentari con priorita di integrazione.
+          </p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtra database">
+          <button data-filter="all" class="filter-btn active">Tutti</button>
+          <button data-filter="medical" class="filter-btn">Medicali</button>
+          <button data-filter="chemical" class="filter-btn">Chimici</button>
+          <button data-filter="food" class="filter-btn">Alimentari</button>
+        </div>
+        <div id="source-grid" class="source-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="ingestion" class="panel reveal">
+        <div class="section-head">
+          <h2>Monitor ingestione API</h2>
+          <p>
+            Stato ultimo run automatico per openFDA, PubChem e USDA con salvataggio locale
+            versionato.
+          </p>
+        </div>
+        <div class="ingestion-meta" id="ingestion-meta"></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Fonte</th>
+                <th>Categoria</th>
+                <th>Stato</th>
+                <th>Record</th>
+                <th>Snapshot</th>
+              </tr>
+            </thead>
+            <tbody id="ingestion-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="lab" class="panel split reveal">
+        <div>
+          <h2>Simulation Lab MVP</h2>
+          <p class="muted">
+            Esegui un esperimento virtuale rule-based. I report sono salvati nello storico locale
+            del browser per confronto progressivo.
+          </p>
+          <form id="sim-form" class="sim-form">
+            <label>
+              ID paziente virtuale
+              <input name="patient_id" value="vp-001" required />
+            </label>
+            <div class="form-grid">
+              <label>
+                Eta
+                <input name="age" type="number" min="1" max="100" value="45" required />
+              </label>
+              <label>
+                Sesso
+                <select name="sex">
+                  <option>F</option>
+                  <option>M</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label>
+                Peso (kg)
+                <input name="weight_kg" type="number" min="20" max="220" step="0.1" value="70" />
+              </label>
+            </div>
+            <label>
+              Patologia
+              <input name="pathology" value="epilessia focale" required />
+            </label>
+            <div class="form-grid">
+              <label>
+                Funzione epatica
+                <select name="liver_status">
+                  <option value="normal">normal</option>
+                  <option value="mild">mild</option>
+                  <option value="moderate">moderate</option>
+                  <option value="severe">severe</option>
+                  <option value="unknown">unknown</option>
+                </select>
+              </label>
+              <label>
+                Funzione renale
+                <select name="renal_status">
+                  <option value="normal">normal</option>
+                  <option value="mild">mild</option>
+                  <option value="moderate">moderate</option>
+                  <option value="severe">severe</option>
+                  <option value="unknown">unknown</option>
+                </select>
+              </label>
+              <label>
+                Aderenza (0-1)
+                <input name="adherence" type="number" min="0" max="1" step="0.01" value="0.8" />
+              </label>
+            </div>
+            <label>
+              Terapie selezionate (separate da virgola)
+              <input name="selected_therapies" value="valproato, lamotrigina" />
+            </label>
+            <label>
+              Fattori di rischio (smoking, alcohol_high, obesity)
+              <input name="risk_factors" value="smoking" />
+            </label>
+            <button class="btn primary" type="submit">Esegui simulazione MVP</button>
+          </form>
+        </div>
+        <aside class="mini-card">
+          <h3>Risultato corrente</h3>
+          <div class="score-grid">
+            <div>
+              <span>Beneficio</span>
+              <strong id="benefit-score">-</strong>
+            </div>
+            <div>
+              <span>Rischio</span>
+              <strong id="risk-score">-</strong>
+            </div>
+            <div>
+              <span>Incertezza</span>
+              <strong id="uncertainty-score">-</strong>
+            </div>
+          </div>
+          <p id="trajectory-label" class="muted">Nessuna simulazione eseguita.</p>
+          <pre id="json-output" class="json-box"></pre>
+        </aside>
+      </section>
+
+      <section class="panel reveal">
+        <div class="section-head">
+          <h2>Storico e confronto esperimenti</h2>
+          <p>Confronto per paziente virtuale con timeline locale persistente (localStorage).</p>
+        </div>
+        <div class="history-controls">
+          <label>
+            Filtra per patient ID
+            <input id="history-filter" placeholder="es. vp-001" />
+          </label>
+          <button id="clear-history" class="btn ghost" type="button">Reset storico locale</button>
+        </div>
+        <div id="comparison-bars" class="bar-grid"></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Report</th>
+                <th>Paziente</th>
+                <th>Patologia</th>
+                <th>Beneficio</th>
+                <th>Rischio</th>
+                <th>Incertezza</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel split reveal">
+        <div>
+          <h2>Roadmap concreta (90 giorni)</h2>
+          <ul class="timeline">
+            <li><strong>Fase 1:</strong> ingestione dati normalizzati e ontologie comuni.</li>
+            <li><strong>Fase 2:</strong> primo motore simulativo trasparente con incertezza esplicita.</li>
+            <li><strong>Fase 3:</strong> benchmark su casi virtuali e validazione metodologica.</li>
+            <li><strong>Fase 4:</strong> dashboard comparativa e audit trail degli esperimenti.</li>
+          </ul>
+        </div>
+        <div class="mini-card accent">
+          <h3>Obiettivo qualità</h3>
+          <p>
+            Essere un riferimento richiede rigore: dati verificabili, versionamento, tracciabilita,
+            riproducibilita e revisione esperta continua.
+          </p>
+        </div>
+      </section>
+
+      <section id="disclaimer" class="panel warning reveal">
+        <h2>Safety e limiti d'uso</h2>
+        <p>
+          MediTwin Lab e un simulatore di ricerca in silico e uno strumento educativo.
+          Non fornisce consigli medici reali, non effettua diagnosi, non prescrive terapie e non
+          sostituisce medici o studi clinici.
+        </p>
+        <p>
+          Ogni risultato e ipotetico e deve essere validato con evidenza scientifica e valutazione
+          clinica professionale.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>MediTwin Lab · Open research prototype · Updated 2026-05-11</p>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

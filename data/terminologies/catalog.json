@@ -1,0 +1,92 @@
+{
+  "systems": [
+    {
+      "id": "rxnorm",
+      "name": "RxNorm",
+      "terms": [
+        {
+          "code": "197361",
+          "label": "Lamotrigina",
+          "aliases": ["lamotrigina", "lamictal"]
+        },
+        {
+          "code": "35296",
+          "label": "Valproato",
+          "aliases": ["valproato", "acido valproico", "depakin"]
+        },
+        {
+          "code": "2002",
+          "label": "Carbamazepina",
+          "aliases": ["carbamazepina", "tegretol"]
+        },
+        {
+          "code": "32968",
+          "label": "Clopidogrel",
+          "aliases": ["clopidogrel", "plavix"]
+        },
+        {
+          "code": "114722",
+          "label": "Levetiracetam",
+          "aliases": ["levetiracetam", "keppra"]
+        }
+      ]
+    },
+    {
+      "id": "atc",
+      "name": "ATC",
+      "terms": [
+        {
+          "code": "N03AX14",
+          "label": "Levetiracetam",
+          "aliases": ["levetiracetam"]
+        },
+        {
+          "code": "N03AG01",
+          "label": "Valproic acid",
+          "aliases": ["valproato", "acido valproico"]
+        },
+        {
+          "code": "N03AF01",
+          "label": "Carbamazepine",
+          "aliases": ["carbamazepina"]
+        },
+        {
+          "code": "B01AC04",
+          "label": "Clopidogrel",
+          "aliases": ["clopidogrel"]
+        },
+        {
+          "code": "N03AX09",
+          "label": "Lamotrigine",
+          "aliases": ["lamotrigina"]
+        }
+      ]
+    },
+    {
+      "id": "icd10",
+      "name": "ICD-10",
+      "terms": [
+        {
+          "code": "G40.9",
+          "label": "Epilessia, non specificata",
+          "aliases": ["epilessia", "epilessia focale"]
+        },
+        {
+          "code": "C80.1",
+          "label": "Neoplasia maligna, sede non specificata",
+          "aliases": ["tumore", "oncologia"]
+        },
+        {
+          "code": "I25.9",
+          "label": "Cardiopatia ischemica cronica",
+          "aliases": ["rischio cardiovascolare", "cardiovascolare"]
+        },
+        {
+          "code": "M35.9",
+          "label": "Malattia sistemica del tessuto connettivo, non specificata",
+          "aliases": ["infiammazione cronica"]
+        }
+      ]
+    }
+  ]
+}

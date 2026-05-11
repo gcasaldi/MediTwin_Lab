@@ -1,0 +1,22 @@
+{
+  "patient_id": "vp-ep-001",
+  "age": 37,
+  "sex": "F",
+  "weight_kg": 63,
+  "pathology": "epilessia focale",
+  "liver_status": "mild",
+  "renal_status": "normal",
+  "biomarkers": {
+    "alt": 31,
+    "egfr": 96,
+    "crp": 2.1
+  },
+  "therapies_in_course": ["levetiracetam"],
+  "selected_therapies": ["valproato", "lamotrigina"],
+  "risk_factors": ["smoking"],
+  "lifestyle": {
+    "adherence": 0.82,
+    "sleep_quality": "low",
+    "diet_pattern": "mixed"
+  }
+}

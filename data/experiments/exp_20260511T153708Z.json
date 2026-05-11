@@ -1,0 +1,70 @@
+{
+  "report_meta": {
+    "report_id": "exp_20260511T153708Z",
+    "created_at": "2026-05-11T15:37:08.774684+00:00",
+    "engine": "MediTwin Rule Engine MVP v0.1",
+    "disclaimer": "Research-only simulation. Not medical advice."
+  },
+  "patient_profile": {
+    "patient_id": "vp-ep-001",
+    "age": 37,
+    "sex": "F",
+    "weight_kg": 63.0,
+    "pathology": "epilessia focale",
+    "liver_status": "mild",
+    "renal_status": "normal",
+    "risk_factors": [
+      "smoking"
+    ],
+    "therapies_in_course": [
+      "levetiracetam"
+    ],
+    "selected_therapies": [
+      "valproato",
+      "lamotrigina"
+    ]
+  },
+  "assessment": {
+    "potential_benefits": {
+      "score": 69.0,
+      "reasons": [
+        "potenziale riduzione frequenza crisi",
+        "effetto combinato potenzialmente sinergico",
+        "aderenza terapeutica stimata buona"
+      ]
+    },
+    "risks_and_contraindications": {
+      "score": 35.0,
+      "risk_drivers": [
+        "terapia combinata con complessita maggiore",
+        "fumo attivo"
+      ],
+      "interactions": [
+        {
+          "severity": "medium-high",
+          "description": "Valproato puo aumentare esposizione a lamotrigina (rischio cutaneo/sedazione)."
+        }
+      ]
+    },
+    "evolution_scenario": {
+      "trajectory_index": 25.3,
+      "label": "miglioramento probabile nel breve periodo",
+      "short_horizon": "2-4 settimane virtuali"
+    },
+    "monitoring_parameters": [
+      "funzionalita epatica (ALT, AST)",
+      "funzionalita renale (eGFR, creatinina)",
+      "eventi avversi riportati dal paziente virtuale",
+      "aderenza terapeutica e qualita di vita",
+      "frequenza e severita crisi"
+    ],
+    "uncertainty": {
+      "score": 27.0,
+      "confidence": 73.0,
+      "notes": [
+        "l'incertezza aumenta con dati mancanti e combinazioni complesse",
+        "la simulazione non sostituisce validazione clinica reale"
+      ]
+    }
+  }
+}

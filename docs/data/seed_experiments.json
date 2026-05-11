@@ -1,0 +1,63 @@
+{
+  "experiments": [
+    {
+      "report_meta": {
+        "report_id": "exp_20260511T153347Z",
+        "created_at": "2026-05-11T15:33:47.648337+00:00",
+        "engine": "MediTwin Rule Engine MVP v0.1",
+        "disclaimer": "Research-only simulation. Not medical advice."
+      },
+      "patient_profile": {
+        "patient_id": "vp-ep-001",
+        "age": 37,
+        "sex": "F",
+        "weight_kg": 63,
+        "pathology": "epilessia focale",
+        "liver_status": "mild",
+        "renal_status": "normal",
+        "selected_therapies": ["valproato", "lamotrigina"],
+        "risk_factors": ["smoking"]
+      },
+      "assessment": {
+        "potential_benefits": {
+          "score": 69,
+          "reasons": [
+            "potenziale riduzione frequenza crisi",
+            "effetto combinato potenzialmente sinergico",
+            "aderenza terapeutica stimata buona"
+          ]
+        },
+        "risks_and_contraindications": {
+          "score": 35,
+          "risk_drivers": ["terapia combinata con complessita maggiore", "fumo attivo"],
+          "interactions": [
+            {
+              "severity": "medium-high",
+              "description": "Valproato puo aumentare esposizione a lamotrigina (rischio cutaneo/sedazione)."
+            }
+          ]
+        },
+        "evolution_scenario": {
+          "trajectory_index": 25.3,
+          "label": "miglioramento probabile nel breve periodo",
+          "short_horizon": "2-4 settimane virtuali"
+        },
+        "monitoring_parameters": [
+          "funzionalita epatica (ALT, AST)",
+          "funzionalita renale (eGFR, creatinina)",
+          "eventi avversi riportati dal paziente virtuale",
+          "aderenza terapeutica e qualita di vita",
+          "frequenza e severita crisi"
+        ],
+        "uncertainty": {
+          "score": 27,
+          "confidence": 73,
+          "notes": [
+            "l'incertezza aumenta con dati mancanti e combinazioni complesse",
+            "la simulazione non sostituisce validazione clinica reale"
+          ]
+        }
+      }
+    }
+  ]
+}
