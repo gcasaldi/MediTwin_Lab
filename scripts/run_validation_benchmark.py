@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# pyright: reportMissingImports=false
 """Run synthetic benchmark scenarios against the MVP rule engine."""
 
 from __future__ import annotations
@@ -15,6 +16,7 @@ from app.api.schemas import SimulationInput  # noqa: E402
 from app.services.simulation_engine import run_simulation  # noqa: E402
 
 VALIDATION_DIR = ROOT / "data" / "validation"
+LIVE_VALIDATION_PATH = ROOT / "docs" / "data" / "live" / "validation.json"
 
 
 SCENARIOS = [
@@ -113,6 +115,10 @@ def main() -> int:
     output_path.write_text(json.dumps(output, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
     latest_path = VALIDATION_DIR / "LATEST.json"
     latest_path.write_text(json.dumps(output, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
+    LIVE_VALIDATION_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LIVE_VALIDATION_PATH.write_text(json.dumps(output, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
+
     print(f"Benchmark completed: {output_path}")
     return 0
 

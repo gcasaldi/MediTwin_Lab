@@ -17,6 +17,15 @@
       "benefit_score": 69.0,
       "risk_score": 35.0,
       "uncertainty_score": 27.0
+    },
+    {
+      "report_id": "exp_20260511T155025343463Z_f8f046",
+      "patient_id": "vp-ep-001",
+      "created_at": "2026-05-11T15:50:25.343506+00:00",
+      "path": "data/experiments/exp_20260511T155025343463Z_f8f046.json",
+      "benefit_score": 69.0,
+      "risk_score": 35.0,
+      "uncertainty_score": 27.0
     }
   ]
 }

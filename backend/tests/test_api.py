@@ -1,24 +1,17 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
+import uuid
 
 from fastapi.testclient import TestClient
 
 os.environ["MEDITWIN_API_KEY"] = "test-key"
-os.environ["MEDITWIN_DB_PATH"] = "data/test_meditwin.db"
+os.environ["MEDITWIN_DB_PATH"] = f"/tmp/meditwin_test_{uuid.uuid4().hex}.db"
 
 from app.main import app  # noqa: E402
 
 
-def _cleanup() -> None:
-    db_file = Path("/workspaces/MediTwin_Lab/data/test_meditwin.db")
-    if db_file.exists():
-        db_file.unlink()
-
-
 def test_health() -> None:
-    _cleanup()
     client = TestClient(app)
     response = client.get("/v1/health")
     assert response.status_code == 200
@@ -26,7 +19,6 @@ def test_health() -> None:
 
 
 def test_run_experiment_requires_key() -> None:
-    _cleanup()
     client = TestClient(app)
     payload = {
         "patient_id": "vp-test-1",

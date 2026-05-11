@@ -440,6 +440,13 @@ main {
   font-size: 0.95rem;
 }
 
+.metric-number {
+  margin: 0;
+  font-size: 1.5rem;
+  font-family: "Space Grotesk", sans-serif;
+  color: #9df0ce;
+}
+
 .bar-row {
   display: grid;
   grid-template-columns: 74px 1fr 36px;

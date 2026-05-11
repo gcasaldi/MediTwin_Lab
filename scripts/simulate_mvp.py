@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -197,7 +198,7 @@ def build_report(patient: PatientProfile, selected_therapies: list[str], knowled
     if "cardio" in patient.pathology.lower():
         monitor.append("pressione arteriosa, LDL, eventi cardiovascolari")
 
-    report_id = datetime.now(timezone.utc).strftime("exp_%Y%m%dT%H%M%SZ")
+    report_id = f"exp_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')}_{uuid.uuid4().hex[:6]}"
     return {
         "report_meta": {
             "report_id": report_id,

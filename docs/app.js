@@ -12,6 +12,9 @@ const historyBody = document.getElementById("history-body");
 const historyFilterInput = document.getElementById("history-filter");
 const clearHistoryButton = document.getElementById("clear-history");
 const comparisonBars = document.getElementById("comparison-bars");
+const validationMeta = document.getElementById("validation-meta");
+const validationCards = document.getElementById("validation-cards");
+const validationBody = document.getElementById("validation-body");
 
 const HISTORY_KEY = "meditwin_experiments_v1";
 
@@ -102,6 +105,51 @@ async function loadIngestionData() {
       .join("");
   } catch (error) {
     ingestionBody.innerHTML = '<tr><td colspan="5">Manifest ingestione non disponibile.</td></tr>';
+    console.error(error);
+  }
+}
+
+async function loadValidationData() {
+  try {
+    const response = await fetch("data/live/validation.json");
+    const payload = await response.json();
+
+    validationMeta.innerHTML = `
+      <div class="meta-pill">Version: ${payload.benchmark_version}</div>
+      <div class="meta-pill">Scenari: ${payload.scenario_count}</div>
+      <div class="meta-pill">Aggiornato: ${new Date(payload.generated_at).toLocaleString("it-IT")}</div>
+    `;
+
+    validationCards.innerHTML = `
+      <article class="bar-card">
+        <h4>Media Beneficio</h4>
+        <p class="metric-number">${payload.aggregate.mean_benefit}</p>
+      </article>
+      <article class="bar-card">
+        <h4>Media Rischio</h4>
+        <p class="metric-number">${payload.aggregate.mean_risk}</p>
+      </article>
+      <article class="bar-card">
+        <h4>Media Incertezza</h4>
+        <p class="metric-number">${payload.aggregate.mean_uncertainty}</p>
+      </article>
+    `;
+
+    validationBody.innerHTML = payload.records
+      .map(
+        (item) => `
+        <tr>
+          <td>${item.scenario}</td>
+          <td>${item.trajectory}</td>
+          <td>${item.benefit_score}</td>
+          <td>${item.risk_score}</td>
+          <td>${item.uncertainty_score}</td>
+        </tr>
+      `
+      )
+      .join("");
+  } catch (error) {
+    validationBody.innerHTML = '<tr><td colspan="5">Benchmark non disponibile.</td></tr>';
     console.error(error);
   }
 }
@@ -441,3 +489,4 @@ bootstrapSeed();
 renderHistory();
 loadSources();
 loadIngestionData();
+loadValidationData();

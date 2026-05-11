@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-05-11T15:47:15.119051+00:00",
+  "benchmark_version": "mvp-rule-engine-v0.2",
+  "scenario_count": 3,
+  "aggregate": {
+    "mean_benefit": 54.67,
+    "mean_risk": 51.33,
+    "mean_uncertainty": 37.0
+  },
+  "records": [
+    {
+      "scenario": "epilepsy_combo_balanced",
+      "report_id": "exp_20260511T154715Z",
+      "benefit_score": 69.0,
+      "risk_score": 35.0,
+      "uncertainty_score": 27.0,
+      "trajectory": "miglioramento probabile nel breve periodo"
+    },
+    {
+      "scenario": "oncology_polytherapy_high_risk",
+      "report_id": "exp_20260511T154715Z",
+      "benefit_score": 56.0,
+      "risk_score": 92.0,
+      "uncertainty_score": 27.0,
+      "trajectory": "stabilita incerta con bisogno di monitoraggio"
+    },
+    {
+      "scenario": "cardio_low_data_high_uncertainty",
+      "report_id": "exp_20260511T154715Z",
+      "benefit_score": 39.0,
+      "risk_score": 27.0,
+      "uncertainty_score": 57.0,
+      "trajectory": "stabilita incerta con bisogno di monitoraggio"
+    }
+  ],
+  "disclaimer": "Synthetic benchmark for research only. Not clinical validation."
+}

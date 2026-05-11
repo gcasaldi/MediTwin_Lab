@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 import json
+import uuid
 
 from app.api.schemas import SimulationInput
 from app.services.terminology import normalize_therapy_names
@@ -190,8 +191,9 @@ def run_simulation(input_data: SimulationInput) -> dict:
     else:
         trajectory_label = "rischio di peggioramento teorico"
 
-    report_id = datetime.now(timezone.utc).strftime("exp_%Y%m%dT%H%M%SZ")
-    now = datetime.now(timezone.utc).isoformat()
+    now_dt = datetime.now(timezone.utc)
+    report_id = f"exp_{now_dt.strftime('%Y%m%dT%H%M%S%fZ')}_{uuid.uuid4().hex[:6]}"
+    now = now_dt.isoformat()
 
     return {
         "report_meta": {
