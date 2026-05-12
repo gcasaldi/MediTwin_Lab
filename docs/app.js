@@ -15,6 +15,9 @@ const comparisonBars = document.getElementById("comparison-bars");
 const validationMeta = document.getElementById("validation-meta");
 const validationCards = document.getElementById("validation-cards");
 const validationBody = document.getElementById("validation-body");
+const realtimeSearchInput = document.getElementById("realtime-search-input");
+const realtimeSearchMeta = document.getElementById("realtime-search-meta");
+const realtimeSearchResults = document.getElementById("realtime-search-results");
 
 const HISTORY_KEY = "meditwin_experiments_v1";
 
@@ -22,6 +25,8 @@ let sources = [];
 let activeFilter = "all";
 let knowledgeBase = { sources: {} };
 let experimentHistory = [];
+let realtimeIndex = [];
+let realtimeSearchTimer = null;
 
 function clamp(value, low, high) {
   return Math.max(low, Math.min(high, value));
@@ -73,6 +78,158 @@ function labelCategory(value) {
   if (value === "chemical") return "Chimico";
   if (value === "food") return "Alimentare";
   return value;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function buildRealtimeNote(item) {
+  if (item.kind === "medical") {
+    return `Segnalazione farmacovigilanza con ${item.drugCount} farmaci coinvolti e possibili eventi: ${item.extra}.`;
+  }
+  if (item.kind === "food") {
+    return `Alimento presente in USDA (${item.extra}). Nutrienti indicativi: ${item.highlight}.`;
+  }
+  return `Composto chimico da PubChem con formula ${item.extra} e peso molecolare ${item.highlight}.`;
+}
+
+async function loadRealtimeSearchData() {
+  if (!realtimeSearchMeta || !realtimeSearchResults) return;
+
+  try {
+    const [openfdaRes, usdaRes, pubchemRes] = await Promise.all([
+      fetch("data/live/openfda.json"),
+      fetch("data/live/usda.json"),
+      fetch("data/live/pubchem.json"),
+    ]);
+
+    const [openfdaData, usdaData, pubchemData] = await Promise.all([
+      openfdaRes.json(),
+      usdaRes.json(),
+      pubchemRes.json(),
+    ]);
+
+    const medicalItems = (openfdaData.records || []).map((record) => {
+      const reactions = (record.reaction_terms || []).slice(0, 4);
+      const reactionText = reactions.length > 0 ? reactions.join(", ") : "n.d.";
+      return {
+        kind: "medical",
+        sourceLabel: "openFDA",
+        title: `Report FDA ${record.safetyreportid}`,
+        subtitle: `Data segnalazione ${record.receivedate || "n.d."}`,
+        highlight: reactionText,
+        extra: reactionText,
+        drugCount: Number(record.drug_count || 0),
+        keywords: [record.safetyreportid, record.receivedate, reactionText, "fda", "farmaco"]
+          .join(" ")
+          .toLowerCase(),
+      };
+    });
+
+    const foodItems = (usdaData.records || []).map((record) => {
+      const nutrients = (record.nutrient_names || []).slice(0, 4);
+      const nutrientText = nutrients.length > 0 ? nutrients.join(", ") : "n.d.";
+      return {
+        kind: "food",
+        sourceLabel: "USDA",
+        title: record.description || `Food ${record.fdc_id}`,
+        subtitle: `FDC ${record.fdc_id} · ${record.data_type || "n.d."}`,
+        highlight: nutrientText,
+        extra: `${record.nutrient_count || 0} nutrienti`,
+        drugCount: 0,
+        keywords: [record.description, record.data_type, nutrientText, "alimentazione", "nutrienti"]
+          .join(" ")
+          .toLowerCase(),
+      };
+    });
+
+    const chemicalItems = (pubchemData.records || []).map((record) => ({
+      kind: "chemical",
+      sourceLabel: "PubChem",
+      title: `CID ${record.cid}`,
+      subtitle: `SMILES: ${record.canonical_smiles || "n.d."}`,
+      highlight: record.molecular_weight || "n.d.",
+      extra: record.molecular_formula || "n.d.",
+      drugCount: 0,
+      keywords: [
+        record.cid,
+        record.molecular_formula,
+        record.molecular_weight,
+        record.canonical_smiles,
+        "chimica",
+        "composto",
+      ]
+        .join(" ")
+        .toLowerCase(),
+    }));
+
+    realtimeIndex = [...medicalItems, ...foodItems, ...chemicalItems];
+    realtimeSearchMeta.textContent = `Indice pronto: ${realtimeIndex.length} record disponibili.`;
+    realtimeSearchResults.innerHTML = '<p class="muted">Inizia a digitare per avviare la ricerca.</p>';
+  } catch (error) {
+    realtimeSearchMeta.textContent = "Indice non disponibile al momento.";
+    realtimeSearchResults.innerHTML =
+      '<p class="muted">Impossibile caricare i dati live per la ricerca.</p>';
+    console.error(error);
+  }
+}
+
+function scoreSearchResult(item, query) {
+  const queryLower = query.toLowerCase();
+  let score = 0;
+  if (item.title.toLowerCase().includes(queryLower)) score += 4;
+  if (item.subtitle.toLowerCase().includes(queryLower)) score += 2;
+  if (item.highlight.toLowerCase().includes(queryLower)) score += 2;
+  if (item.keywords.includes(queryLower)) score += 1;
+  return score;
+}
+
+function renderRealtimeSearchResults(query) {
+  if (!realtimeSearchResults || !realtimeSearchMeta) return;
+
+  const cleaned = query.trim().toLowerCase();
+  if (cleaned.length < 2) {
+    realtimeSearchMeta.textContent = "Digita almeno 2 caratteri per cercare nei dataset live.";
+    realtimeSearchResults.innerHTML = '<p class="muted">Nessuna ricerca attiva.</p>';
+    return;
+  }
+
+  const matches = realtimeIndex
+    .filter((item) => item.keywords.includes(cleaned))
+    .map((item) => ({ item, score: scoreSearchResult(item, cleaned) }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 12)
+    .map((entry) => entry.item);
+
+  realtimeSearchMeta.textContent = `Risultati per "${query}": ${matches.length}`;
+
+  if (matches.length === 0) {
+    realtimeSearchResults.innerHTML =
+      '<p class="muted">Nessun match trovato. Prova con sinonimi o termini piu generici.</p>';
+    return;
+  }
+
+  realtimeSearchResults.innerHTML = matches
+    .map(
+      (item) => `
+      <article class="search-card">
+        <div class="search-meta-tags">
+          <span class="tag ${item.kind}">${labelCategory(item.kind)}</span>
+          <span class="tag">${escapeHtml(item.sourceLabel)}</span>
+        </div>
+        <h4>${escapeHtml(item.title)}</h4>
+        <p>${escapeHtml(item.subtitle)}</p>
+        <p class="quick-note">${escapeHtml(buildRealtimeNote(item))}</p>
+      </article>
+    `
+    )
+    .join("");
 }
 
 async function loadIngestionData() {
@@ -484,9 +641,22 @@ clearHistoryButton.addEventListener("click", () => {
   renderHistory();
 });
 
+if (realtimeSearchInput) {
+  realtimeSearchInput.addEventListener("input", (event) => {
+    const value = String(event.target.value || "");
+    if (realtimeSearchTimer) {
+      clearTimeout(realtimeSearchTimer);
+    }
+    realtimeSearchTimer = setTimeout(() => {
+      renderRealtimeSearchResults(value);
+    }, 130);
+  });
+}
+
 loadHistory();
 bootstrapSeed();
 renderHistory();
 loadSources();
 loadIngestionData();
 loadValidationData();
+loadRealtimeSearchData();

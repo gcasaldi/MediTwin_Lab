@@ -332,6 +332,64 @@ main {
   color: #9cc1b8;
 }
 
+.realtime-search-wrap {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+}
+
+.realtime-search-wrap label {
+  color: #d6ebe6;
+  font-size: 0.94rem;
+}
+
+.realtime-search-wrap input {
+  width: 100%;
+  background: #0b2023;
+  color: var(--text);
+  border: 1px solid rgba(122, 190, 171, 0.35);
+  border-radius: 10px;
+  padding: 0.62rem 0.72rem;
+}
+
+.search-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.search-card {
+  border: 1px solid rgba(158, 223, 203, 0.25);
+  border-radius: 12px;
+  background: #0d2327;
+  padding: 0.82rem;
+}
+
+.search-card h4 {
+  margin: 0.25rem 0 0.45rem;
+  font-size: 0.98rem;
+}
+
+.search-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.search-card .quick-note {
+  margin-top: 0.55rem;
+  color: #d4efe9;
+  font-size: 0.86rem;
+}
+
+.search-meta-tags {
+  display: flex;
+  gap: 0.38rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.3rem;
+}
+
 .sim-form {
   display: grid;
   gap: 0.72rem;

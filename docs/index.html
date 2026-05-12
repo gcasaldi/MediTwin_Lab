@@ -25,6 +25,7 @@
         <span class="brand">MediTwin Lab</span>
         <div class="nav-links">
           <a class="nav-link" href="#fonti">Database</a>
+          <a class="nav-link" href="#ricerca">Ricerca</a>
           <a class="nav-link" href="#ingestion">Ingestion</a>
           <a class="nav-link" href="#validation">Validation</a>
           <a class="nav-link" href="#lab">Lab</a>
@@ -140,6 +141,27 @@
             <tbody id="validation-body"></tbody>
           </table>
         </div>
+      </section>
+
+      <section id="ricerca" class="panel reveal">
+        <div class="section-head">
+          <h2>Ricerca real-time farmaci, alimentazione e chimica</h2>
+          <p>
+            Scrivi un termine e ottieni risultati combinati dai dataset live openFDA, USDA e
+            PubChem con spiegazioni rapide in linguaggio semplice.
+          </p>
+        </div>
+        <div class="realtime-search-wrap">
+          <label for="realtime-search-input">Cerca (es. valproato, apple, C9H8O4)</label>
+          <input
+            id="realtime-search-input"
+            type="search"
+            placeholder="Digita almeno 2 caratteri..."
+            autocomplete="off"
+          />
+          <p id="realtime-search-meta" class="muted">Caricamento indice ricerca...</p>
+        </div>
+        <div id="realtime-search-results" class="search-grid" aria-live="polite"></div>
       </section>
 
       <section id="lab" class="panel split reveal">
