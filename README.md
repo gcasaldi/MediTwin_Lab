@@ -137,6 +137,16 @@ Deploy automatico configurato con GitHub Actions in [.github/workflows/pages.yml
 2. In Build and deployment seleziona Source: GitHub Actions.
 3. Esegui un push su main: il workflow pubblichera il contenuto della cartella docs.
 
+### Se su Pages vedi README invece della web app
+
+Se la pagina pubblicata non mostra la dashboard ma un contenuto tipo README, in genere la Source non e configurata su GitHub Actions.
+
+Checklist rapida:
+
+1. Vai in Settings > Pages e imposta Source: GitHub Actions.
+2. Verifica che il workflow [Deploy GitHub Pages](.github/workflows/pages.yml) sia completato con stato green.
+3. Apri l'URL Pages dopo il deploy: la root del repository reindirizza automaticamente a [docs/index.html](docs/index.html).
+
 ## Fonti dati integrate (catalogo iniziale)
 
 Le fonti sono elencate in [docs/data/sources.json](docs/data/sources.json) e comprendono esempi ad alta priorita come:
