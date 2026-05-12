@@ -162,6 +162,49 @@
           <p id="realtime-search-meta" class="muted">Caricamento indice ricerca...</p>
         </div>
         <div id="realtime-search-results" class="search-grid" aria-live="polite"></div>
+
+        <div class="section-head composer-head">
+          <h3>Composer per patologia (output integrato)</h3>
+          <p>
+            Inserisci una patologia e ricevi una proposta virtuale con parametri confrontabili per
+            combinare in modo piu bilanciato componenti farmacologiche, alimentari e chimiche.
+          </p>
+        </div>
+
+        <form id="pathology-form" class="composer-form">
+          <label>
+            Patologia
+            <input
+              id="pathology-input"
+              name="pathology"
+              placeholder="es. epilessia, infiammazione cronica, rischio cardiovascolare"
+              required
+            />
+          </label>
+          <button class="btn primary" type="submit">Genera output integrato</button>
+        </form>
+
+        <p id="pathology-meta" class="muted">
+          Nessuna analisi avviata. Inserisci una patologia per generare i parametri.
+        </p>
+
+        <div id="pathology-score-grid" class="score-chip-grid"></div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Dominio</th>
+                <th>Elemento</th>
+                <th>Parametri principali</th>
+                <th>Match score</th>
+              </tr>
+            </thead>
+            <tbody id="pathology-body"></tbody>
+          </table>
+        </div>
+
+        <div id="pathology-plan" class="composer-plan"></div>
       </section>
 
       <section id="lab" class="panel split reveal">

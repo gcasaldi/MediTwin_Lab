@@ -18,6 +18,12 @@ const validationBody = document.getElementById("validation-body");
 const realtimeSearchInput = document.getElementById("realtime-search-input");
 const realtimeSearchMeta = document.getElementById("realtime-search-meta");
 const realtimeSearchResults = document.getElementById("realtime-search-results");
+const pathologyForm = document.getElementById("pathology-form");
+const pathologyInput = document.getElementById("pathology-input");
+const pathologyMeta = document.getElementById("pathology-meta");
+const pathologyScoreGrid = document.getElementById("pathology-score-grid");
+const pathologyBody = document.getElementById("pathology-body");
+const pathologyPlan = document.getElementById("pathology-plan");
 
 const HISTORY_KEY = "meditwin_experiments_v1";
 
@@ -27,6 +33,7 @@ let knowledgeBase = { sources: {} };
 let experimentHistory = [];
 let realtimeIndex = [];
 let realtimeSearchTimer = null;
+let liveRecords = { medical: [], food: [], chemical: [] };
 
 function clamp(value, low, high) {
   return Math.max(low, Math.min(high, value));
@@ -170,8 +177,17 @@ async function loadRealtimeSearchData() {
     }));
 
     realtimeIndex = [...medicalItems, ...foodItems, ...chemicalItems];
+    liveRecords = {
+      medical: openfdaData.records || [],
+      food: usdaData.records || [],
+      chemical: pubchemData.records || [],
+    };
     realtimeSearchMeta.textContent = `Indice pronto: ${realtimeIndex.length} record disponibili.`;
     realtimeSearchResults.innerHTML = '<p class="muted">Inizia a digitare per avviare la ricerca.</p>';
+
+    if (pathologyInput && pathologyInput.value.trim()) {
+      renderPathologyComposer(pathologyInput.value);
+    }
   } catch (error) {
     realtimeSearchMeta.textContent = "Indice non disponibile al momento.";
     realtimeSearchResults.innerHTML =
@@ -188,6 +204,203 @@ function scoreSearchResult(item, query) {
   if (item.highlight.toLowerCase().includes(queryLower)) score += 2;
   if (item.keywords.includes(queryLower)) score += 1;
   return score;
+}
+
+function getPathologyProfile(pathologyRaw) {
+  const p = String(pathologyRaw || "").toLowerCase();
+
+  const base = {
+    label: "profilo generale",
+    targetNutrients: ["Protein", "Vitamin C", "Fiber", "Iron"],
+    avoidReactions: ["renal impairment", "hepatic enzyme increased", "drug hypersensitivity"],
+    monitoring: ["funzione renale", "funzione epatica", "aderenza", "eventi avversi"],
+  };
+
+  if (p.includes("epiless")) {
+    return {
+      label: "epilessia",
+      targetNutrients: ["Magnesium", "Vitamin B6", "Protein", "Omega"],
+      avoidReactions: ["headache", "malaise", "drug administration error", "overdose"],
+      monitoring: ["controllo crisi", "sedazione", "funzione epatica", "aderenza"],
+    };
+  }
+
+  if (p.includes("cardio") || p.includes("pressione") || p.includes("ipert")) {
+    return {
+      label: "rischio cardiovascolare",
+      targetNutrients: ["Fiber", "Potassium", "Omega", "Vitamin C"],
+      avoidReactions: ["renal impairment", "drug ineffective", "cough"],
+      monitoring: ["pressione", "funzione renale", "aderenza", "interazioni"],
+    };
+  }
+
+  if (p.includes("diabet")) {
+    return {
+      label: "diabete",
+      targetNutrients: ["Fiber", "Protein", "Magnesium", "Vitamin C"],
+      avoidReactions: ["drug ineffective", "renal impairment", "dyspepsia"],
+      monitoring: ["glicemia", "funzione renale", "aderenza", "tollerabilita"],
+    };
+  }
+
+  if (p.includes("infiam")) {
+    return {
+      label: "infiammazione cronica",
+      targetNutrients: ["Vitamin C", "Omega", "Protein", "Fiber"],
+      avoidReactions: ["hepatic enzyme increased", "arthralgia", "diarrhoea"],
+      monitoring: ["marker infiammatori", "funzione epatica", "eventi GI", "aderenza"],
+    };
+  }
+
+  if (p.includes("onc") || p.includes("tum")) {
+    return {
+      label: "oncologia",
+      targetNutrients: ["Protein", "Energy", "Iron", "Vitamin C"],
+      avoidReactions: ["drug hypersensitivity", "malaise", "hepatic enzyme increased"],
+      monitoring: ["tollerabilita", "funzione epatica", "funzione renale", "aderenza"],
+    };
+  }
+
+  return base;
+}
+
+function rankMedicalCandidates(profile) {
+  return liveRecords.medical
+    .map((record) => {
+      const reactions = (record.reaction_terms || []).map((x) => String(x).toLowerCase());
+      const reactionCount = reactions.length;
+      const drugCount = Number(record.drug_count || 0);
+      const avoidHits = profile.avoidReactions.filter((term) =>
+        reactions.some((rx) => rx.includes(String(term).toLowerCase()))
+      ).length;
+      const score = clamp(82 - reactionCount * 10 - avoidHits * 18 - Math.max(drugCount - 2, 0) * 5, 0, 100);
+
+      return {
+        domain: "Farmacologico",
+        name: `Report ${record.safetyreportid}`,
+        score,
+        params: `farmaci coinvolti: ${drugCount}; segnali avversi: ${reactionCount}; alert prioritari: ${avoidHits}`,
+        short: reactions.slice(0, 3).join(", ") || "nessuna reazione nota",
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+}
+
+function rankFoodCandidates(profile) {
+  return liveRecords.food
+    .map((record) => {
+      const nutrients = (record.nutrient_names || []).map((x) => String(x));
+      const nutrientLower = nutrients.map((x) => x.toLowerCase());
+      const matchHits = profile.targetNutrients.filter((target) =>
+        nutrientLower.some((nut) => nut.includes(String(target).toLowerCase()))
+      ).length;
+      const nutrientCount = Number(record.nutrient_count || 0);
+      const score = clamp(36 + matchHits * 16 + Math.min(nutrientCount / 3, 22), 0, 100);
+
+      return {
+        domain: "Alimentare",
+        name: `${record.description || "n.d."} (${record.data_type || "n.d."})`,
+        score,
+        params: `nutrienti tracciati: ${nutrientCount}; nutrienti target centrati: ${matchHits}`,
+        short: nutrients.slice(0, 4).join(", ") || "profilo nutrienti non disponibile",
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+}
+
+function rankChemicalCandidates() {
+  return liveRecords.chemical
+    .map((record) => {
+      const mw = Number(record.molecular_weight || 0);
+      let score = 68;
+      if (mw >= 150 && mw <= 500) score += 16;
+      if (mw > 0 && (mw < 120 || mw > 700)) score -= 12;
+
+      return {
+        domain: "Chimico",
+        name: `CID ${record.cid}`,
+        score: clamp(score, 0, 100),
+        params: `formula: ${record.molecular_formula || "n.d."}; peso molecolare: ${record.molecular_weight || "n.d."}`,
+        short: `SMILES ${record.canonical_smiles || "n.d."}`,
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 2);
+}
+
+function renderPathologyComposer(pathologyRaw) {
+  if (!pathologyBody || !pathologyMeta || !pathologyScoreGrid || !pathologyPlan) return;
+
+  const pathology = String(pathologyRaw || "").trim();
+  if (!pathology) {
+    pathologyMeta.textContent = "Inserisci una patologia valida per avviare l'analisi.";
+    pathologyBody.innerHTML = "";
+    pathologyScoreGrid.innerHTML = "";
+    pathologyPlan.innerHTML = "";
+    return;
+  }
+
+  const profile = getPathologyProfile(pathology);
+  const medical = rankMedicalCandidates(profile);
+  const food = rankFoodCandidates(profile);
+  const chemical = rankChemicalCandidates();
+  const rows = [...medical, ...food, ...chemical];
+
+  if (rows.length === 0) {
+    pathologyMeta.textContent = "Dati live insufficienti per elaborare la proposta.";
+    pathologyBody.innerHTML = '<tr><td colspan="4">Nessun dato disponibile.</td></tr>';
+    pathologyScoreGrid.innerHTML = "";
+    pathologyPlan.innerHTML = "";
+    return;
+  }
+
+  const avgMedical = medical.length
+    ? Number((medical.reduce((acc, item) => acc + item.score, 0) / medical.length).toFixed(1))
+    : 0;
+  const avgFood = food.length
+    ? Number((food.reduce((acc, item) => acc + item.score, 0) / food.length).toFixed(1))
+    : 0;
+  const avgChemical = chemical.length
+    ? Number((chemical.reduce((acc, item) => acc + item.score, 0) / chemical.length).toFixed(1))
+    : 0;
+  const synergy = Number((avgMedical * 0.42 + avgFood * 0.35 + avgChemical * 0.23).toFixed(1));
+
+  pathologyMeta.textContent = `Patologia: ${profile.label}. Output generato su ${rows.length} elementi selezionati.`;
+
+  pathologyScoreGrid.innerHTML = `
+    <article class="score-chip"><span>Fit farmacologico</span><strong>${avgMedical}</strong></article>
+    <article class="score-chip"><span>Fit alimentare</span><strong>${avgFood}</strong></article>
+    <article class="score-chip"><span>Fit chimico</span><strong>${avgChemical}</strong></article>
+    <article class="score-chip"><span>Indice sinergia virtuale</span><strong>${synergy}</strong></article>
+  `;
+
+  pathologyBody.innerHTML = rows
+    .map(
+      (item) => `
+      <tr>
+        <td>${escapeHtml(item.domain)}</td>
+        <td>${escapeHtml(item.name)}</td>
+        <td>${escapeHtml(item.params)}<br /><span class="muted">${escapeHtml(item.short)}</span></td>
+        <td>${item.score}</td>
+      </tr>
+    `
+    )
+    .join("");
+
+  const topMedical = medical[0] ? `${medical[0].name} (score ${medical[0].score})` : "n.d.";
+  const topFood = food[0] ? `${food[0].name} (score ${food[0].score})` : "n.d.";
+  const topChemical = chemical[0] ? `${chemical[0].name} (score ${chemical[0].score})` : "n.d.";
+
+  pathologyPlan.innerHTML = `
+    <h4>Proposta combinata leggibile (uso ricerca)</h4>
+    <p><strong>Farmacologico prioritario:</strong> ${escapeHtml(topMedical)}</p>
+    <p><strong>Alimentazione di supporto:</strong> ${escapeHtml(topFood)}</p>
+    <p><strong>Riferimento chimico:</strong> ${escapeHtml(topChemical)}</p>
+    <p><strong>Parametri da monitorare:</strong> ${escapeHtml(profile.monitoring.join(", "))}</p>
+    <p><strong>Nota:</strong> output virtuale orientato a ricerca/educazione, non prescrittivo.</p>
+  `;
 }
 
 function renderRealtimeSearchResults(query) {
@@ -650,6 +863,13 @@ if (realtimeSearchInput) {
     realtimeSearchTimer = setTimeout(() => {
       renderRealtimeSearchResults(value);
     }, 130);
+  });
+}
+
+if (pathologyForm) {
+  pathologyForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    renderPathologyComposer(pathologyInput ? pathologyInput.value : "");
   });
 }
 

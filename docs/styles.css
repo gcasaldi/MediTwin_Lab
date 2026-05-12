@@ -390,6 +390,76 @@ main {
   margin-bottom: 0.3rem;
 }
 
+.composer-head {
+  margin-top: 1.3rem;
+}
+
+.composer-form {
+  display: flex;
+  gap: 0.7rem;
+  align-items: end;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.composer-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: #d6ebe6;
+  min-width: min(560px, 100%);
+}
+
+.composer-form input {
+  width: 100%;
+  background: #0b2023;
+  color: var(--text);
+  border: 1px solid rgba(122, 190, 171, 0.35);
+  border-radius: 10px;
+  padding: 0.62rem 0.72rem;
+}
+
+.score-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.score-chip {
+  border: 1px solid rgba(128, 203, 181, 0.24);
+  border-radius: 12px;
+  padding: 0.55rem;
+  background: rgba(12, 33, 36, 0.7);
+}
+
+.score-chip span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.score-chip strong {
+  font-size: 1.15rem;
+}
+
+.composer-plan {
+  margin-top: 0.9rem;
+  border: 1px solid rgba(158, 223, 203, 0.25);
+  border-radius: 12px;
+  background: #0d2327;
+  padding: 0.85rem;
+}
+
+.composer-plan h4 {
+  margin: 0 0 0.45rem;
+}
+
+.composer-plan p {
+  margin: 0.2rem 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
 .sim-form {
   display: grid;
   gap: 0.72rem;
