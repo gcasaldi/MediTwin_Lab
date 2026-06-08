@@ -1,6 +1,6 @@
 {
-  "run_id": "20260601T055757Z",
-  "generated_at": "2026-06-01T05:57:57.663906+00:00",
+  "run_id": "20260608T055605Z",
+  "generated_at": "2026-06-08T05:56:05.661728+00:00",
   "sources": [
     {
       "source_id": "openfda",
@@ -8,8 +8,8 @@
       "category": "medical",
       "status": "ok",
       "record_count": 10,
-      "snapshot_raw": "data/ingestion/20260601T055757Z/openfda_raw.json",
-      "snapshot_normalized": "data/ingestion/20260601T055757Z/openfda_normalized.json",
+      "snapshot_raw": "data/ingestion/20260608T055605Z/openfda_raw.json",
+      "snapshot_normalized": "data/ingestion/20260608T055605Z/openfda_normalized.json",
       "description": "Adverse event metadata from openFDA public API.",
       "endpoint": "https://api.fda.gov/drug/event.json?limit=10",
       "error": null
@@ -20,8 +20,8 @@
       "category": "chemical",
       "status": "ok",
       "record_count": 1,
-      "snapshot_raw": "data/ingestion/20260601T055757Z/pubchem_raw.json",
-      "snapshot_normalized": "data/ingestion/20260601T055757Z/pubchem_normalized.json",
+      "snapshot_raw": "data/ingestion/20260608T055605Z/pubchem_raw.json",
+      "snapshot_normalized": "data/ingestion/20260608T055605Z/pubchem_normalized.json",
       "description": "Representative compound properties from PubChem PUG REST.",
       "endpoint": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/property/MolecularFormula,MolecularWeight,CanonicalSMILES/JSON",
       "error": null
@@ -32,8 +32,8 @@
       "category": "food",
       "status": "ok",
       "record_count": 10,
-      "snapshot_raw": "data/ingestion/20260601T055757Z/usda_raw.json",
-      "snapshot_normalized": "data/ingestion/20260601T055757Z/usda_normalized.json",
+      "snapshot_raw": "data/ingestion/20260608T055605Z/usda_raw.json",
+      "snapshot_normalized": "data/ingestion/20260608T055605Z/usda_normalized.json",
       "description": "Food composition entries using FoodData Central demo key.",
       "endpoint": "https://api.nal.usda.gov/fdc/v1/foods/search?query=apple&pageSize=10&api_key=DEMO_KEY",
       "error": null
