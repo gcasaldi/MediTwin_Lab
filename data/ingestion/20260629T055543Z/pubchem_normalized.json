@@ -1,0 +1,11 @@
+{
+  "records": [
+    {
+      "cid": 2244,
+      "molecular_formula": "C9H8O4",
+      "molecular_weight": "180.16",
+      "canonical_smiles": "CC(=O)OC1=CC=CC=C1C(=O)O"
+    }
+  ],
+  "record_count": 1
+}

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-22T06:09:03.268198+00:00",
-  "run_id": "20260622T060903Z",
+  "generated_at": "2026-06-29T05:55:43.353986+00:00",
+  "run_id": "20260629T055543Z",
   "sources": {
     "openfda": {
       "records": [
@@ -108,6 +108,21 @@
     "usda": {
       "records": [
         {
+          "fdc_id": 2117388,
+          "description": "APPLE",
+          "data_type": "Branded",
+          "nutrient_count": 7,
+          "nutrient_names": [
+            "Protein",
+            "Total lipid (fat)",
+            "Carbohydrate, by difference",
+            "Energy",
+            "Total Sugars",
+            "Sodium, Na",
+            "Vitamin C, total ascorbic acid"
+          ]
+        },
+        {
           "fdc_id": 454004,
           "description": "APPLE",
           "data_type": "Branded",
@@ -121,21 +136,6 @@
             "Cholesterol",
             "Fatty acids, total saturated",
             "Protein"
-          ]
-        },
-        {
-          "fdc_id": 2117388,
-          "description": "APPLE",
-          "data_type": "Branded",
-          "nutrient_count": 7,
-          "nutrient_names": [
-            "Protein",
-            "Total lipid (fat)",
-            "Carbohydrate, by difference",
-            "Energy",
-            "Total Sugars",
-            "Sodium, Na",
-            "Vitamin C, total ascorbic acid"
           ]
         },
         {
