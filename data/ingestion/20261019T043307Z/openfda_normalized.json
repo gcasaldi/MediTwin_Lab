@@ -1,0 +1,92 @@
+{
+  "records": [
+    {
+      "safetyreportid": "5801206-7",
+      "receivedate": "20080707",
+      "drug_count": 1,
+      "reaction_terms": [
+        "DRUG ADMINISTRATION ERROR",
+        "OVERDOSE"
+      ]
+    },
+    {
+      "safetyreportid": "10003300",
+      "receivedate": "20140306",
+      "drug_count": 1,
+      "reaction_terms": [
+        "Vomiting",
+        "Diarrhoea",
+        "Arthralgia",
+        "Headache"
+      ]
+    },
+    {
+      "safetyreportid": "10003301",
+      "receivedate": "20140228",
+      "drug_count": 1,
+      "reaction_terms": [
+        "Dyspepsia",
+        "Renal impairment"
+      ]
+    },
+    {
+      "safetyreportid": "10003302",
+      "receivedate": "20140312",
+      "drug_count": 1,
+      "reaction_terms": [
+        "Drug ineffective"
+      ]
+    },
+    {
+      "safetyreportid": "10003304",
+      "receivedate": "20140312",
+      "drug_count": 9,
+      "reaction_terms": [
+        "Drug hypersensitivity"
+      ]
+    },
+    {
+      "safetyreportid": "10003305",
+      "receivedate": "20140312",
+      "drug_count": 6,
+      "reaction_terms": [
+        "Drug hypersensitivity"
+      ]
+    },
+    {
+      "safetyreportid": "10003306",
+      "receivedate": "20140312",
+      "drug_count": 2,
+      "reaction_terms": [
+        "Cough",
+        "Throat irritation"
+      ]
+    },
+    {
+      "safetyreportid": "10003307",
+      "receivedate": "20140312",
+      "drug_count": 3,
+      "reaction_terms": [
+        "Rhinorrhoea"
+      ]
+    },
+    {
+      "safetyreportid": "10003308",
+      "receivedate": "20140312",
+      "drug_count": 2,
+      "reaction_terms": [
+        "Unevaluable event",
+        "Malaise"
+      ]
+    },
+    {
+      "safetyreportid": "10003309",
+      "receivedate": "20140312",
+      "drug_count": 2,
+      "reaction_terms": [
+        "Hepatic enzyme increased"
+      ]
+    }
+  ],
+  "record_count": 10
+}
