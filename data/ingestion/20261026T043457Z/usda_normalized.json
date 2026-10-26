@@ -1,0 +1,164 @@
+{
+  "records": [
+    {
+      "fdc_id": 454004,
+      "description": "APPLE",
+      "data_type": "Branded",
+      "nutrient_count": 15,
+      "nutrient_names": [
+        "Calcium, Ca",
+        "Iron, Fe",
+        "Sodium, Na",
+        "Vitamin A, IU",
+        "Vitamin C, total ascorbic acid",
+        "Cholesterol",
+        "Fatty acids, total saturated",
+        "Protein"
+      ]
+    },
+    {
+      "fdc_id": 2117388,
+      "description": "APPLE",
+      "data_type": "Branded",
+      "nutrient_count": 7,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Total Sugars",
+        "Sodium, Na",
+        "Vitamin C, total ascorbic acid"
+      ]
+    },
+    {
+      "fdc_id": 2124902,
+      "description": "APPLE",
+      "data_type": "Branded",
+      "nutrient_count": 15,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Total Sugars",
+        "Fiber, total dietary",
+        "Calcium, Ca",
+        "Iron, Fe"
+      ]
+    },
+    {
+      "fdc_id": 2709294,
+      "description": "Apple, candied",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    },
+    {
+      "fdc_id": 2709215,
+      "description": "Apple, raw",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    },
+    {
+      "fdc_id": 2709196,
+      "description": "Apple, dried",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    },
+    {
+      "fdc_id": 2708023,
+      "description": "Crisp, apple",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    },
+    {
+      "fdc_id": 2709220,
+      "description": "Apple, baked",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    },
+    {
+      "fdc_id": 2709319,
+      "description": "Apple cider",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    },
+    {
+      "fdc_id": 2708019,
+      "description": "Cobbler, apple",
+      "data_type": "Survey (FNDDS)",
+      "nutrient_count": 65,
+      "nutrient_names": [
+        "Protein",
+        "Total lipid (fat)",
+        "Carbohydrate, by difference",
+        "Energy",
+        "Alcohol, ethyl",
+        "Water",
+        "Caffeine",
+        "Theobromine"
+      ]
+    }
+  ],
+  "record_count": 10
+}
